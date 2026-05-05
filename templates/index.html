@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flask Calculator</title>
+    <style>
+        body { font-family: Arial; text-align: center; margin-top: 50px; }
+        .calculator { display: inline-block; }
+        .screen { font-size: 24px; width: 100%; padding: 10px; margin-bottom: 10px; text-align: right; }
+        .buttons form { display: grid; grid-template-columns: repeat(4, 60px); gap: 10px; }
+        button { padding: 15px; font-size: 18px; }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div class="screen">{{ expression }} {% if result %}= {{ result }}{% endif %}</div>
+        <div class="buttons">
+            <form method="POST">
+                {% for row in [["7", "8", "9", "+"], ["4", "5", "6", "-"], ["1", "2", "3", "*"], ["0", "clear", "equals", "/"]] %}
+                    {% for char in row %}
+                        {% if char == "clear" %}
+                            <button type="submit" name="clear">C</button>
+                        {% elif char == "equals" %}
+                            <button type="submit" name="equals">=</button>
+                        {% else %}
+                            <button type="submit" name="button" value="{{ char }}">{{ char }}</button>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+                <input type="hidden" name="expression" value="{{ expression }}">
+            </form>
+        </div>
+    </div>
+</body>
+</html>
